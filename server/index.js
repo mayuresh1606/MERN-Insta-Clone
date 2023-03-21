@@ -5,17 +5,18 @@ import bodyParser from "body-parser";
 import { connectDB } from "./connect.js";
 
 
+import homeRouter from "./routers/index.js"
+
 const CONNECTION_URL = "mongodb+srv://mayuresh_1606:maddy865210@mern.h62t5qm.mongodb.net/?retryWrites=true&w=majority";
 
 const app = express();
-
 const PORT = 5000
 
-app.use("/", (req, res) => {
-    res.send("Hello")
-})
+app.use("/", homeRouter)
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit:"30mb", extended:true}))
+app.use(bodyParser.urlencoded({limit:"30mb", extended:true}))
+app.use(cors())
 
 const start = async () => {
     try {
