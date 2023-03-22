@@ -4,11 +4,38 @@ import axios from "axios"
 import "./styles.css"
 
 export default function Form(){
-    const [postData, setPostData] = useState({creator: '', title: '', message:'', tags: '', selectedFile:''});
-    const [errorMessage, setErrorMessage] = useState({status: true, element:"message", message: `cannot be blank`})
+    const [postData, setPostData] = useState({creator: '', caption: '', location:'', tags: '', selectedFile:''});
+    const [errorMessage, setErrorMessage] = useState({status: false, element:"location"})
+    const handleTime = () => {
+        setTimeout(() => {
+            setErrorMessage({status:false, element:"location"})
+        }, 4000)
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(postData);
+        if (!postData.creator){
+            setErrorMessage({status:true, element:"creator"})
+            handleTime()
+        }
+        else if (!postData.caption){
+            setErrorMessage({status:true, element:"caption"})
+            handleTime()
+        }
+        else if (!postData.location){
+            setErrorMessage({status:true, element:"location"})
+            handleTime()
+        }
+        else if (!postData.tags){
+            setErrorMessage({status:true, element:"tags"})
+            handleTime()
+        }
+        else if (!postData.selectedFile){
+            setErrorMessage({status:true, element:"Image"})
+            handleTime()
+        }
+        // else{
+        //     await axios.post(postData)
+        // }
     }
     return <>
         <form className="form" onSubmit={handleSubmit}>
@@ -17,12 +44,12 @@ export default function Form(){
                 <input onChange={(e) => setPostData({...postData, creator:e.currentTarget.value})} type="text" name="creator"/>
             </div>
             <div className="form-input">
-                <label for="title">Title: </label>
-                <input onChange={(e) => setPostData({...postData, title:e.currentTarget.value})} type="text" name="title"/>
+                <label for="caption">Caption: </label>
+                <input onChange={(e) => setPostData({...postData, caption:e.currentTarget.value})} type="text" name="caption"/>
             </div>
             <div className="form-input">
-                <label for="message">Message: </label>
-                <input onChange={(e) => setPostData({...postData, message:e.currentTarget.value})} type="text" name="message"/>
+                <label for="location">Location: </label>
+                <input onChange={(e) => setPostData({...postData, location:e.currentTarget.value})} type="text" name="location"/>
             </div>
             <div className="form-input">
                 <label for="tags">Tags: </label>

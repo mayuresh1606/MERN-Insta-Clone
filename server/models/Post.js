@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
-    title: String,
-    message: String,
+    caption: String,
+    location: String,
     creator: String,
     tags: [String],
     likeCount:{
