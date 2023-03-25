@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
+import User from "./User.js";
+
 
 const postSchema = mongoose.Schema({
     caption: String,
     location: String,
-    creator: String,
+    creator: {
+        type:mongoose.Schema.ObjectId,
+        ref:"User",
+        required:[true, "Username must be provided"]
+    },
     tags: [String],
     likeCount:{
         type:Number,
