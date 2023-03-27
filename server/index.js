@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { connectDB } from "./connect.js";
-
+import dotenv from "dotenv"
+dotenv.config();
 
 import homeRouter from "./routers/index.js"
 import userRouter from "./routers/users/index.js"

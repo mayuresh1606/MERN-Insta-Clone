@@ -50,10 +50,17 @@ export const LoginForm = () => {
                 }
             }catch(err){
                 console.log(err)
-                if (err.response.data.err.keyValue.userName !== undefined){
+                const errorObject = err.response.data.err;
+                let userNameExists = Object.values(errorObject).includes(11000);
+                const passwordMin = Object.values(errorObject).includes("ValidationError")
+                if (userNameExists){
                     setErrorMessage({status: true, element:"Username is already taken choose a different one", color:"red"});
                     handleTime()
-                }else if(err.response.data.err.errors.email){
+                } else if (passwordMin){
+                    setErrorMessage({status: true, element:"password should be atleast 6 characters long", color:"red"});
+                    handleTime()                    
+                }
+                else {
                     setErrorMessage({status: true, element:err.response.data.err.errors.email.message, color:"red"});
                     handleTime()
                 }
